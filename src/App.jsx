@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Typography, Spin } from "antd";
-import axios from "axios";
+import { Button, message, Spin } from "antd";
+import './index.css';
 
 const { Title, Paragraph } = Typography;
 
@@ -8,18 +8,32 @@ function App() {
   const [quote, setQuote] = useState(""); //тут храним цитаты
   const [loading, setLoading] = useState(false); //тут отслеживаем состояние загрузки
 
+  useEffect(() => {
   const fetchQuote = async () => {
     setLoading(true); //тут вкл индтикатор загрузки
     try { 
-      const response = await axios.get(""); //тут делаем запрос к API с цитатами
-      setQuote(response.data.content); //тут получаем цитату и обновл состояние
+      const response = await fetch(""); //тут делаем запрос к API с цитатами
+      if (!response.ok) throw new Error('Ошибка при получении цитаты');
+      const data = await response.json();
+      setQuote(data.content); //тут получаем цитату и обновл состояние
     } catch (error) {
-      console.error("Error fetching quote", error);
-      setQuote("Не удалось получить цитату. Попробуйте позже.");
+      message.error(error.message);
     } finally {
       setLoading(false); //тут откл индикатор загрузки
     }
-  }
+  };
+  
+    fetchQuote();
+  },[]);
+
+  return (
+    <div>
+
+    </div>
+  )
+
+
+
 }
 
 export default App;
