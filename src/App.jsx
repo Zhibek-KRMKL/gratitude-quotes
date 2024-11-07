@@ -1,10 +1,9 @@
-function App() {
+import { useEffect, useState } from "react";
+import { Button, Typography, Spin } from "antd";
+import axios from "axios";
 
-  return (
-    <>
-      <h1>Vite + React</h1>
-    </>
-  )
-}
+const { Title, Paragraph } = Typography;
 
-export default App
+function App() {}
+
+export default App;
